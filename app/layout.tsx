@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   },
   // 🌟 네이버 웹마스터툴 소유권 확인 태그 추가 (도메인이 변경되었으므로 네이버 서치어드바이저에서 새로 발급받아 교체해야 합니다)
   other: {
-    "naver-site-verification": "56bb598dc69231ad112010f48aa335598b5a274", 
+    "naver-site-verification": "56bb598dc69231ad112010f48aa335598b5a2740", 
   },
   openGraph: {
     title: `${SITE_NAME} | 경기·인천·서울 힐링 테라피 플랫폼`,
