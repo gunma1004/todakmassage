@@ -10,9 +10,9 @@ interface PageProps {
   }>;
 }
 
-const SITE_URL = "https://kkulma.netlify.app";
+const SITE_URL = "https://todakmassage.netlify.app";
+const SITE_NAME = "토닥마사지";
 
-// 🌟 1단: 무조건 '마사지' 키워드가 들어가도록 조합된 패턴 풀
 const dongServicePatterns = [
   '마사지', '출장 마사지', '스웨디시 마사지',
   '타이 마사지', '아로마 마사지', '홈타이 마사지',
@@ -21,19 +21,16 @@ const dongServicePatterns = [
   '힐링 마사지', '림프 마사지', '프리미엄 마사지'
 ];
 
-// 🌟 2단: 동 단위 연계 안마 예약 키워드 풀
 const dongBookingActions = [
   '안마 예약', '실시간 방문예약', '테라피 코스 예약', '힐링 안마예약',
   '바디케어 추천예약', '웰니스 안마 안내', '스웨디시 통합예약', '출장 홈타이 안내'
 ];
 
-// 🌟 3단: 플랫폼 브랜드
 const dongPlatformHooks = [
-  '꿀마', 'KKULMA', '안심 웰니스', '프라이빗 케어',
+  '토닥마사지', 'TODAK', '안심 웰니스', '프라이빗 케어',
   '힐링 네트워크', '안심 후불제', '전신 피로해소', '1:1 맞춤 케어'
 ];
 
-// 🌟 디스크립션 가격 및 소구점 조합 풀
 const priceHooks = [
   '건식 6만원부터 심야할증 없이 방문합니다.',
   '건식 7만원부터 심야할증 없이 방문합니다.',
@@ -42,7 +39,6 @@ const priceHooks = [
   '타이 6만원부터 현장 결제 후불제로 방문합니다.'
 ];
 
-// 🌟 5개 고정 추천 샵
 const shops = [
   { id: 1, name: "한국골든테라피", badge: "VIP 골든 힐링 케어", desc: "골든 품격의 감성 릴렉싱! 전문 관리사들의 정성스러운 맞춤 테라피", phone: "0507-1280-3361", image: "/shop1.jpg" },
   { id: 2, name: "한국미인테라피", badge: "재방문율 최우수", desc: "최고급 천연 오일을 활용한 감성 아로마 전신 바디케어 프로그램", phone: "0507-1280-3303", image: "/shop2.jpg" },
@@ -64,7 +60,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   
   const locationKeyword = `${cityName} ${districtName} ${dongName}`;
 
-  const seedString = `${locationKeyword}-kkulma-dong-seo`;
+  const seedString = `${locationKeyword}-todak-dong-seo`;
   const charSum = seedString.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
   
   const part1Idx = charSum % dongServicePatterns.length;
@@ -72,10 +68,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const part3Idx = (charSum * 5) % dongPlatformHooks.length;
   const priceIdx = (charSum * 7) % priceHooks.length;
 
-  // 💡 [양재동 마사지 | 양재동 안마 예약 | 꿀마] 형식
-  const finalTitle = `${dongName} ${dongServicePatterns[part1Idx]} | ${dongName} ${dongBookingActions[part2Idx]} | ${dongPlatformHooks[part3Idx]}`;
-  
-  // 💡 [양재동 출장 마사지...] 형식으로 강제 시작
+  const finalTitle = `${dongName} 출장 ${dongServicePatterns[part1Idx]} 마사지 | ${dongName} ${dongBookingActions[part2Idx]} | ${dongPlatformHooks[part3Idx]}`;
   const finalDescription = `${dongName} 출장 마사지 및 프리미엄 홈타이 전문. 검증된 관리사의 100% 후불제 안심 케어. ${priceHooks[priceIdx]}`;
 
   return {
@@ -83,7 +76,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title: { absolute: finalTitle },
     description: finalDescription,
     alternates: { canonical: `${SITE_URL}/${city}/${district}/${dong}` },
-    keywords: [`${dongName} 마사지`, `${dongName} 출장마사지`, `${dongName} 홈타이`, `${dongName} 스웨디시`, "꿀마"],
+    keywords: [`${dongName} 마사지`, `${dongName} 출장마사지`, `${dongName} 홈타이`, `${dongName} 스웨디시`, SITE_NAME],
     openGraph: { title: finalTitle, description: finalDescription, url: `${SITE_URL}/${city}/${district}/${dong}`, locale: "ko_KR", type: "website" },
   };
 }
@@ -103,7 +96,7 @@ export default async function DongPage({ params }: PageProps) {
     <div className="bg-slate-50 text-slate-800 min-h-screen flex flex-col font-sans selection:bg-sky-500 selection:text-white">
       <header className="bg-white border-b border-slate-200 sticky top-0 z-40 px-4 py-3 shadow-sm">
         <div className="max-w-4xl mx-auto flex justify-between items-center">
-          <Link href="/" className="text-xl font-bold text-sky-600">꿀마 (Kkulma)</Link>
+          <Link href="/" className="text-xl font-bold text-sky-600">{SITE_NAME}</Link>
           <Link href={`/${city}/${district}`} className="text-xs font-bold text-sky-600 bg-sky-50 px-3 py-1.5 rounded-xl border border-sky-100 hover:bg-sky-600 hover:text-white transition-all">
             &larr; {districtName} 지역으로
           </Link>
@@ -119,7 +112,6 @@ export default async function DongPage({ params }: PageProps) {
           </p>
         </section>
 
-        {/* 추천 제휴샵 5곳 리스트 (상세페이지로 링크 연결) */}
         <section className="bg-white border border-slate-200 p-6 rounded-3xl space-y-4 shadow-sm">
           <div className="text-center">
             <span className="text-sky-600 text-xs font-bold tracking-widest uppercase">TOP PARTNER SHOPS</span>

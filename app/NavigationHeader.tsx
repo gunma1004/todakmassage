@@ -18,7 +18,7 @@ export default function NavigationHeader() {
           </div>
           <div className="flex flex-col">
             <span className="text-lg font-black tracking-tight text-slate-900 leading-none">
-              꿀마 <span className="text-xs text-sky-600 font-semibold tracking-normal">KKULMA</span>
+              토닥마사지 <span className="text-xs text-sky-600 font-semibold tracking-normal">KKULMA</span>
             </span>
           </div>
         </Link>

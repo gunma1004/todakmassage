@@ -1,15 +1,15 @@
 import { Metadata } from "next";
 import MainClientUI from "./MainClientUI";
 
-const SITE_URL = "https://kkulma.netlify.app";
-const SITE_NAME = "꿀마";
+const SITE_URL = "https://todakmassage.netlify.app";
+const SITE_NAME = "토닥마사지";
 
 export const metadata: Metadata = {
   // 스팸 키워드 배제 및 네이버 검색 최적화 규격 준수
   title: `${SITE_NAME} | 경기·인천·서울 프리미엄 힐링 테라피`,
   description: "경기·인천·서울 지역의 검증된 프리미엄 힐링 테라피 & 바디케어 정보 플랫폼! 내 주변 맞춤형 제휴 샵과 쾌적한 휴식 공간 정보를 확인하세요.",
   keywords: [
-    "꿀마",
+    "토닥마사지",
     "Kkulma",
     "힐링테라피플랫폼",
     "바디케어",
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: `${SITE_NAME} | 경기·인천·서울 힐링 테라피 예약`,
-    description: "내 주변 검증된 힐링 테라피 샵 정보 총집합! 타이, 아로마, 에스테틱 맞춤 휴식 공간을 꿀마에서 만나보세요.",
+    description: "내 주변 검증된 힐링 테라피 샵 정보 총집합! 타이, 아로마, 에스테틱 맞춤 휴식 공간을 토닥마사지에서 만나보세요.",
     url: SITE_URL,
     siteName: `${SITE_NAME} (Kkulma)`,
     locale: "ko_KR",
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
         url: "/og-main.png",
         width: 1200,
         height: 630,
-        alt: "꿀마 - 프리미엄 힐링 & 바디케어 플랫폼",
+        alt: "토닥마사지 - 프리미엄 힐링 & 바디케어 플랫폼",
       },
     ],
   },

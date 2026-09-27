@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import NavigationHeader from "./NavigationHeader";
 
-const SITE_URL = "https://kkulma.netlify.app";
-const SITE_NAME = "꿀마";
+const SITE_URL = "https://todakmassage.netlify.app";
+const SITE_NAME = "토닥마사지";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   // 스팸 키워드를 배제한 클린하고 신뢰감 주는 메인 디스크립션
   description: "경기, 인천, 서울 지역의 검증된 프리미엄 힐링 테라피 및 바디케어 정보를 한눈에! 내 주변 맞춤형 휴식 공간과 제휴 샵 정보를 빠르고 편리하게 확인하세요.",
   keywords: [
-    "꿀마",
+    "토닥마사지",
     "경기 마사지",
     "인천 힐링 테라피",
     "서울 에스테틱",
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   },
   // 🌟 네이버 웹마스터툴 소유권 확인 태그 추가 (도메인이 변경되었으므로 네이버 서치어드바이저에서 새로 발급받아 교체해야 합니다)
   other: {
-    "naver-site-verification": "81067612bc6994453b9f8ec9eb23b036547fdbf8", 
+    "naver-site-verification": "56bb598dc69231ad112010f48aa335598b5a274", 
   },
   openGraph: {
     title: `${SITE_NAME} | 경기·인천·서울 힐링 테라피 플랫폼`,
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
         url: "/og-main.png",
         width: 1200,
         height: 630,
-        alt: "꿀마 프리미엄 힐링 플랫폼 안내",
+        alt: "토닥마사지 프리미엄 힐링 플랫폼 안내",
       },
     ],
   },

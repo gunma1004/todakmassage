@@ -8,15 +8,16 @@ interface PageProps {
   }>;
 }
 
-const SITE_URL = "https://kkulma.netlify.app";
+const SITE_URL = "https://todakmassage.netlify.app";
+const SITE_NAME = "토닥마사지";
 
 const cityBookingPatterns = [
-  '전지역 안마 예약', '실시간 방문예약', '테라피 코스 예약', '힐링 안마예약',
-  '바디케어 추천예약', '웰니스 안마 안내', '스웨디시 통합예약', '출장 홈타이 안내'
+  '전지역 마사지 예약', '실시간 마사지예약', '마사지 코스 예약', '힐링 마사지 예약',
+  '마사지 케어 추천예약', '마사지 케어 안내', '마사지 통합예약', '마사지 케어 안내'
 ];
 
 const cityPlatformHooks = [
-  '꿀마', 'KKULMA', '안심 웰니스', '프라이빗 케어',
+  '토닥마사지', 'TODAK', '안심 웰니스', '프라이빗 케어',
   '힐링 네트워크', '안심 후불제', '전신 피로해소', '1:1 맞춤 케어'
 ];
 
@@ -42,25 +43,22 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   
   const cityName = city.toLowerCase() === "seoul" ? "서울" : city.toLowerCase() === "incheon" ? "인천" : "경기";
 
-  const seedString = `${cityName}-${city.toLowerCase()}-kkulma-city-seo`;
+  const seedString = `${cityName}-${city.toLowerCase()}-todak-city-seo`;
   const charSum = seedString.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
   
   const part2Idx = (charSum * 3) % cityBookingPatterns.length;
   const part3Idx = (charSum * 5) % cityPlatformHooks.length;
   const priceIdx = (charSum * 7) % priceHooks.length;
 
-  // 💡 [서울 마사지 | 전지역 안마 예약 | 꿀마] 형식
   const finalTitle = `${cityName} 마사지 | ${cityName} ${cityBookingPatterns[part2Idx]} | ${cityPlatformHooks[part3Idx]}`;
-  
-  // 💡 [서울 출장 마사지 및 홈타이...] 형식으로 강제 시작
-  const finalDescription = `${cityName} 출장 마사지 및 프리미엄 홈타이 전문. 검증된 관리사의 100% 후불제 안심 케어. ${priceHooks[priceIdx]}`;
+  const finalDescription = `${cityName} 출장 홈케어 및 프리미엄 마사지 전문. 검증된 관리사의 100% 후불제 안심 케어. ${priceHooks[priceIdx]}`;
 
   return {
     metadataBase: new URL(SITE_URL),
     title: { absolute: finalTitle },
     description: finalDescription,
     alternates: { canonical: `${SITE_URL}/${city}` },
-    keywords: [`${cityName} 마사지`, `${cityName} 출장마사지`, `${cityName} 홈타이`, `${cityName} 스웨디시`, "꿀마"],
+    keywords: [`${cityName} 마사지`, `${cityName} 출장 마사지`, `${cityName} 홈타이`, `${cityName} 스웨디시`, SITE_NAME],
     openGraph: { title: finalTitle, description: finalDescription, url: `${SITE_URL}/${city}`, locale: "ko_KR", type: "website" },
   };
 }
@@ -77,7 +75,7 @@ export default async function CityPage({ params }: PageProps) {
     <div className="bg-slate-50 text-slate-800 min-h-screen flex flex-col font-sans selection:bg-sky-500 selection:text-white">
       <header className="bg-white border-b border-slate-200 sticky top-0 z-40 px-4 py-3 shadow-sm">
         <div className="max-w-4xl mx-auto flex justify-between items-center">
-          <Link href="/" className="text-xl font-bold text-sky-600">꿀마 (Kkulma)</Link>
+          <Link href="/" className="text-xl font-bold text-sky-600">{SITE_NAME}</Link>
           <Link href="/" className="text-xs font-bold text-sky-600 bg-sky-50 px-3 py-1.5 rounded-xl border border-sky-100 hover:bg-sky-600 hover:text-white transition-all">
             &larr; 메인 홈으로
           </Link>
@@ -93,7 +91,6 @@ export default async function CityPage({ params }: PageProps) {
           </p>
         </section>
 
-        {/* 하위 구/시/군 선택 칩 리스트 */}
         <section className="bg-white border border-slate-200 p-6 rounded-3xl space-y-4 shadow-sm">
           <h2 className="text-xs font-bold text-slate-500 uppercase tracking-wider">
             📍 {cityName} 세부 권역(구·시·군) 선택
@@ -108,7 +105,6 @@ export default async function CityPage({ params }: PageProps) {
           </div>
         </section>
 
-        {/* 추천 제휴샵 5곳 리스트 */}
         <section className="bg-white border border-slate-200 p-6 rounded-3xl space-y-4 shadow-sm">
           <div className="text-center">
             <span className="text-sky-600 text-xs font-bold tracking-widest uppercase">TOP PARTNER SHOPS</span>

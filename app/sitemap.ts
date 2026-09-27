@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next';
 import { regionData } from '@/lib/regions';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = 'https://kkulma.netlify.app';
+  const baseUrl = 'https://todakmassage.netlify.app';
   const lastModified = new Date();
 
   // 1. 메인 홈 페이지

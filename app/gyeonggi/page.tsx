@@ -1,12 +1,12 @@
 import Link from 'next/link';
 import type { Metadata } from "next";
 
-const SITE_URL = "https://kkulma.netlify.app";
-const SITE_NAME = "꿀마";
+const SITE_URL = "https://todakmassage.netlify.app";
+const SITE_NAME = "토닥마사지";
 
 export const metadata: Metadata = {
   title: `${SITE_NAME} | 경기 지역 전체 시·군·구 제휴 힐링 테라피 안내`,
-  description: "경기도 전 지역의 세부 동·읍·면별 제휴 출장 마사지 정보를 편리하게 확인하세요. 꿀마에서 쾌적하고 신뢰할 수 있는 웰니스 프로그램을 만나보세요.",
+  description: "경기도 전 지역의 세부 동·읍·면별 제휴 출장 마사지 정보를 편리하게 확인하세요. 토닥마사지에서 쾌적하고 신뢰할 수 있는 웰니스 프로그램을 만나보세요.",
   alternates: {
     canonical: `${SITE_URL}/gyeonggi`,
   },
@@ -206,7 +206,7 @@ export default function GyeonggiRegionPage() {
       <header className="bg-white border-b border-slate-200 sticky top-0 z-50">
         <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
           <Link href="/" className="text-xl font-bold text-sky-600">
-            꿀마 (Kkulma)
+            토닥마사지 (Kkulma)
           </Link>
           <Link href="/" className="text-sm text-slate-500 hover:text-slate-800">
             &larr; 홈으로 돌아가기
@@ -263,8 +263,8 @@ export default function GyeonggiRegionPage() {
       </section>
 
       <footer className="bg-white border-t border-slate-200 py-8 text-center text-xs text-slate-400 mt-20">
-        <p>© 2026 꿀마 (Kkulma). All rights reserved.</p>
-        <p className="mt-1">도메인: https://kkulma.netlify.app/gyeonggi/</p>
+        <p>© 2026 토닥마사지 (Kkulma). All rights reserved.</p>
+        <p className="mt-1">도메인: https://todakmassage.netlify.app/gyeonggi/</p>
       </footer>
     </main>
   );

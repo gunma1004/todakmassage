@@ -9,22 +9,23 @@ interface PageProps {
   }>;
 }
 
-const SITE_URL = "https://kkulma.netlify.app";
+const SITE_URL = "https://todakmassage.netlify.app";
+const SITE_NAME = "토닥마사지";
 
 const districtBookingActions = [
-  '안마 예약', '실시간 방문예약', '테라피 코스 예약', '힐링 안마예약',
-  '바디케어 추천예약', '웰니스 안마 안내', '스웨디시 통합예약', '출장 홈타이 안내'
+  '마사지 예약', '실시간 마사지 예약', '마사지 코스 예약', '힐링 마사지예약',
+  '바디 마사지 추천예약', '웰니스 마사지 안내', '마사지 통합예약', '출장 마사지 안내'
 ];
 
 const districtPlatformHooks = [
-  '꿀마', 'KKULMA', '안심 웰니스', '프라이빗 케어',
+  '토닥마사지', 'TODAK', '안심 웰니스', '프라이빗 케어',
   '힐링 네트워크', '안심 후불제', '전신 피로해소', '1:1 맞춤 케어'
 ];
 
 const priceHooks = [
-  '건식 6만원부터 심야할증 없이 방문합니다.',
-  '건식 7만원부터 심야할증 없이 방문합니다.',
-  '스웨디시 8만원부터 추가비용 없이 방문합니다.',
+  '건식 아로마 심야할증 없이 방문합니다.',
+  '건식 스웨디시 심야할증 없이 방문합니다.',
+  '스웨디시 타이 아로마 추가비용 없이 방문합니다.',
   '아로마 7만원부터 합리적인 정찰제로 방문합니다.',
   '타이 6만원부터 현장 결제 후불제로 방문합니다.'
 ];
@@ -47,17 +48,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const cityName = city.toLowerCase() === "seoul" ? "서울" : city.toLowerCase() === "incheon" ? "인천" : "경기";
   const districtName = districtInfo ? districtInfo.name : district;
 
-  const seedString = `${cityName}-${district.toLowerCase()}-kkulma-district-seo`;
+  const seedString = `${cityName}-${district.toLowerCase()}-todak-district-seo`;
   const charSum = seedString.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
   
   const part2Idx = (charSum * 3) % districtBookingActions.length;
   const part3Idx = (charSum * 5) % districtPlatformHooks.length;
   const priceIdx = (charSum * 7) % priceHooks.length;
 
-  // 💡 [강남구 마사지 | 강남구 안마 예약 | 꿀마] 형식
-  const finalTitle = `${districtName} 마사지 | ${districtName} ${districtBookingActions[part2Idx]} | ${districtPlatformHooks[part3Idx]}`;
-  
-  // 💡 [강남구 출장 마사지 및 홈타이...] 형식으로 강제 시작
+  const finalTitle = `${districtName} 마사지 | ${districtName} ${districtBookingActions[part2Idx]} 출장 | ${districtPlatformHooks[part3Idx]}`;
   const finalDescription = `${districtName} 출장 마사지 및 프리미엄 홈타이 전문. 검증된 관리사의 100% 후불제 안심 케어. ${priceHooks[priceIdx]}`;
 
   return {
@@ -65,7 +63,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title: { absolute: finalTitle },
     description: finalDescription,
     alternates: { canonical: `${SITE_URL}/${city}/${district}` },
-    keywords: [`${districtName} 마사지`, `${districtName} 출장마사지`, `${districtName} 홈타이`, `${districtName} 스웨디시`, "꿀마"],
+    keywords: [`${districtName} 마사지`, `${districtName} 출장마사지`, `${districtName} 홈타이`, `${districtName} 스웨디시`, SITE_NAME],
     openGraph: { title: finalTitle, description: finalDescription, url: `${SITE_URL}/${city}/${district}`, locale: "ko_KR", type: "website" },
   };
 }
@@ -84,7 +82,7 @@ export default async function DistrictPage({ params }: PageProps) {
     <div className="bg-slate-50 text-slate-800 min-h-screen flex flex-col font-sans selection:bg-sky-500 selection:text-white">
       <header className="bg-white border-b border-slate-200 sticky top-0 z-40 px-4 py-3 shadow-sm">
         <div className="max-w-4xl mx-auto flex justify-between items-center">
-          <Link href="/" className="text-xl font-bold text-sky-600">꿀마 (Kkulma)</Link>
+          <Link href="/" className="text-xl font-bold text-sky-600">{SITE_NAME}</Link>
           <Link href={`/${city}`} className="text-xs font-bold text-sky-600 bg-sky-50 px-3 py-1.5 rounded-xl border border-sky-100 hover:bg-sky-600 hover:text-white transition-all">
             &larr; {cityName} 지역으로
           </Link>
@@ -100,7 +98,6 @@ export default async function DistrictPage({ params }: PageProps) {
           </p>
         </section>
 
-        {/* 하위 동(읍/면) 선택 칩 리스트 */}
         {districtInfo && districtInfo.dongs && districtInfo.dongs.length > 0 && (
           <section className="bg-white border border-slate-200 p-6 rounded-3xl space-y-4 shadow-sm">
             <h2 className="text-xs font-bold text-slate-500 uppercase tracking-wider">
@@ -120,7 +117,6 @@ export default async function DistrictPage({ params }: PageProps) {
           </section>
         )}
 
-        {/* 추천 제휴샵 5곳 리스트 */}
         <section className="bg-white border border-slate-200 p-6 rounded-3xl space-y-4 shadow-sm">
           <div className="text-center">
             <span className="text-sky-600 text-xs font-bold tracking-widest uppercase">TOP PARTNER SHOPS</span>
