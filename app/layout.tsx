@@ -1,6 +1,5 @@
-import type { Metadata } from "next";
-import "./globals.css";
-import NavigationHeader from "./NavigationHeader";
+import type { Metadata } from 'next';
+import './globals.css';
 
 const SITE_URL = "https://todakmassage.netlify.app";
 const SITE_NAME = "토닥마사지";
@@ -8,31 +7,31 @@ const SITE_NAME = "토닥마사지";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    // 네이버 검색 최적화 규격 준수 (경기·인천·서울 테라피)
-    default: `${SITE_NAME} | 경기·인천·서울 프리미엄 힐링 테라피 플랫폼`,
+    default: `${SITE_NAME} | 경기·인천·서울 프리미엄 출장 마사지`,
     template: `%s | ${SITE_NAME}`
   },
-  // 스팸 키워드를 배제한 클린하고 신뢰감 주는 메인 디스크립션
-  description: "경기, 인천, 서울 지역의 검증된 프리미엄 힐링 테라피 및 바디케어 정보를 한눈에! 내 주변 맞춤형 휴식 공간과 제휴 샵 정보를 빠르고 편리하게 확인하세요.",
+  description: "경기, 인천, 서울 지역의 검증된 프리미엄 출장 마사지 및 바디케어 정보를 한눈에! 내 주변 맞춤형 휴식 공간과 제휴 샵 정보를 빠르고 편리하게 확인하세요.",
   keywords: [
     "토닥마사지",
     "경기 마사지",
     "인천 힐링 테라피",
     "서울 에스테틱",
     "수도권 마사지 플랫폼",
+    "출장 마사지",
     "바디케어 제휴 샵",
     "방문 힐링"
   ],
   alternates: {
     canonical: SITE_URL,
   },
-  // 🌟 네이버 웹마스터툴 소유권 확인 태그 추가 (도메인이 변경되었으므로 네이버 서치어드바이저에서 새로 발급받아 교체해야 합니다)
-  other: {
-    "naver-site-verification": "56bb598dc69231ad112010f48aa335598b5a2740", 
+  verification: {
+    other: {
+      'naver-site-verification': '56bb598dc69231ad112010f48aa335598b5a2740',
+    },
   },
   openGraph: {
-    title: `${SITE_NAME} | 경기·인천·서울 힐링 테라피 플랫폼`,
-    description: "경기, 인천, 서울 전 지역의 엄선된 프리미엄 힐링 테라피 및 바디케어 정보를 간편하게 찾아보세요.",
+    title: `${SITE_NAME} | 경기·인천·서울 출장 마사지 플랫폼`,
+    description: "경기, 인천, 서울 전 지역의 엄선된 프리미엄 출장 마사지 및 바디케어 정보를 간편하게 찾아보세요.",
     url: SITE_URL,
     siteName: SITE_NAME,
     locale: "ko_KR",
@@ -67,7 +66,6 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className="bg-slate-50 text-slate-800 min-h-screen flex flex-col font-sans selection:bg-sky-500 selection:text-white">
-        <NavigationHeader />
         {children}
       </body>
     </html>
