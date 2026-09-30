@@ -124,7 +124,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const hookIdx = (cityCode * 3) % cityPlatformHooks.length;
   const priceIdx = (cityCode * 7) % priceHooks.length;
 
-  const finalTitle = `${cityName} ${cityCoursePatterns[courseIdx]} | ${cityPlatformHooks[hookIdx]} | ${SITE_NAME}`;
+  // 타이틀 생성: [도시명] [60개 코스 패턴 중 1개] | [플랫폼 훅] | [사이트명]
+  let finalTitle = `${cityName} ${cityCoursePatterns[courseIdx]} | ${cityPlatformHooks[hookIdx]} | ${SITE_NAME}`;
+  
+  // 혹시 모를 '마사지 마사지' 중복 키워드 자동 압축 방어 코드
+  finalTitle = finalTitle.replace(/마사지\s*마사지/g, '마사지');
+
   const finalDescription = `${districtPrefix} 검증된 한국인 관리사의 100% 후불제 홈케어. ${priceHooks[priceIdx]}`;
 
   return {
