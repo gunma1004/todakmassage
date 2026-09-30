@@ -12,20 +12,43 @@ interface PageProps {
 const SITE_URL = "https://todakmassage.netlify.app";
 const SITE_NAME = "토닥마사지";
 
-const districtBookingActions = [
-  '마사지 예약', '실시간 마사지 예약', '마사지 코스 예약', '힐링 마사지예약',
-  '바디 마사지 추천예약', '웰니스 마사지 안내', '마사지 통합예약', '출장 마사지 안내'
+// 마사지 키워드가 겹치지 않도록 분산 배치한 20가지 코스 패턴
+const districtCoursePatterns = [
+  '출장 건식 마사지 & 힐링 케어',
+  '출장 아로마 마사지 1:1 맞춤',
+  '출장 스웨디시 & 프리미엄 테라피',
+  '출장 타이 테라피 정찰제 안내',
+  '출장 힐링 바디케어 코스 예약',
+  '출장 딥티슈 테라피 안심 서비스',
+  '출장 릴렉싱 마사지 안심 후불제',
+  '출장 감성 스웨디시 케어 추천',
+  '출장 스포츠 테라피 피로해소 코스',
+  '출장 전신 마사지 & 1:1 힐링',
+  '출장 로미로미 테라피 전문 안내',
+  '출장 아로마 오일 힐링 케어',
+  '출장 풋&바디 테라피 맞춤 코스',
+  '출장 림프 순환 케어 안심 서비스',
+  '출장 프리미엄 홈타이 테라피',
+  '출장 감성 테라피 프라이빗 케어',
+  '출장 바디 밸런스 힐링 추천',
+  '출장 시그니처 마사지 VIP 예약',
+  '출장 힐링 아로마 테라피 후불제',
+  '출장 1:1 맞춤 전신 케어 안내'
 ];
 
 const districtPlatformHooks = [
-  '토닥마사지', 'TODAK', '안심 웰니스', '프라이빗 케어',
-  '힐링 네트워크', '안심 후불제', '전신 피로해소', '1:1 맞춤 케어'
+  '토닥 전지역 예약',
+  '100% 안심 후불제',
+  '프라이빗 홈케어',
+  '신속 방문 힐링망',
+  '피로해소 웰니스',
+  '검증된 전문 힐러'
 ];
 
 const priceHooks = [
-  '건식 아로마 심야할증 없이 방문합니다.',
-  '건식 스웨디시 심야할증 없이 방문합니다.',
-  '스웨디시 타이 아로마 추가비용 없이 방문합니다.',
+  '건식 6만원부터 심야할증 없이 방문합니다.',
+  '건식 7만원부터 심야할증 없이 방문합니다.',
+  '스웨디시 8만원부터 추가비용 없이 방문합니다.',
   '아로마 7만원부터 합리적인 정찰제로 방문합니다.',
   '타이 6만원부터 현장 결제 후불제로 방문합니다.'
 ];
@@ -51,20 +74,38 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const seedString = `${cityName}-${district.toLowerCase()}-todak-district-seo`;
   const charSum = seedString.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
   
-  const part2Idx = (charSum * 3) % districtBookingActions.length;
-  const part3Idx = (charSum * 5) % districtPlatformHooks.length;
+  const courseIdx = (charSum * 3) % districtCoursePatterns.length;
+  const hookIdx = (charSum * 5) % districtPlatformHooks.length;
   const priceIdx = (charSum * 7) % priceHooks.length;
 
-  const finalTitle = `${districtName} 마사지 | ${districtName} ${districtBookingActions[part2Idx]} 출장 | ${districtPlatformHooks[part3Idx]}`;
-  const finalDescription = `${districtName} 출장 마사지 및 프리미엄 홈타이 전문. 검증된 관리사의 100% 후불제 안심 케어. ${priceHooks[priceIdx]}`;
+  // 타이틀 구성: [구/동이름] [코스패턴] | [후킹문구] | [사이트명]
+  let finalTitle = `${districtName} ${districtCoursePatterns[courseIdx]} | ${districtPlatformHooks[hookIdx]} | ${SITE_NAME}`;
+  
+  // 혹시라도 '마사지'가 연속해서 나오는 현상을 원천 방지
+  finalTitle = finalTitle.replace(/(마사지\s*)+마사지/g, '마사지');
+
+  // 디스크립션: [구/동이름] 바로 뒤에 '출장 마사지'가 자연스럽게 위치하도록 설정
+  const finalDescription = `${cityName} ${districtName} 출장 마사지 및 프리미엄 홈타이 전문. 검증된 관리사의 100% 후불제 안심 케어. ${priceHooks[priceIdx]}`;
 
   return {
     metadataBase: new URL(SITE_URL),
     title: { absolute: finalTitle },
     description: finalDescription,
     alternates: { canonical: `${SITE_URL}/${city}/${district}` },
-    keywords: [`${districtName} 마사지`, `${districtName} 출장마사지`, `${districtName} 홈타이`, `${districtName} 스웨디시`, SITE_NAME],
-    openGraph: { title: finalTitle, description: finalDescription, url: `${SITE_URL}/${city}/${district}`, locale: "ko_KR", type: "website" },
+    keywords: [
+      `${districtName} 출장 마사지`,
+      `${districtName} 마사지`,
+      `${districtName} 홈타이`,
+      `${districtName} 스웨디시`,
+      SITE_NAME
+    ],
+    openGraph: { 
+      title: finalTitle, 
+      description: finalDescription, 
+      url: `${SITE_URL}/${city}/${district}`, 
+      locale: "ko_KR", 
+      type: "website" 
+    },
   };
 }
 
@@ -76,7 +117,6 @@ export default async function DistrictPage({ params }: PageProps) {
   const region = regionData[city.toLowerCase()];
   const districtInfo = region?.districts[district.toLowerCase()];
   const districtName = districtInfo ? districtInfo.name : district;
-  const fullTitle = `${cityName} ${districtName}`;
 
   return (
     <div className="bg-slate-50 text-slate-800 min-h-screen flex flex-col font-sans selection:bg-sky-500 selection:text-white">
