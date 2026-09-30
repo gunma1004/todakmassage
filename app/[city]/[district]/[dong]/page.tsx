@@ -277,11 +277,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     description: finalDescription,
     alternates: { canonical: `${SITE_URL}/${city}/${district}/${dong}` },
     keywords: [
-      `${dongName} 출장 마사지`,
       `${dongName} 마사지`,
+      `${dongName} 출장 타이 마사지`,
       `${dongName} 스웨디시`,
       `${dongName} 홈타이`,
-      `${districtName} 출장마사지`,
+      `${districtName} 출장 아로마 마사지`,
       SITE_NAME
     ],
     openGraph: {
