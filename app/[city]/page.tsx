@@ -11,14 +11,76 @@ interface PageProps {
 const SITE_URL = "https://todakmassage.netlify.app";
 const SITE_NAME = "토닥마사지";
 
-const cityBookingPatterns = [
-  '전지역 마사지 예약', '실시간 마사지예약', '마사지 코스 예약', '힐링 마사지 예약',
-  '마사지 케어 추천예약', '마사지 케어 안내', '마사지 통합예약', '마사지 케어 안내'
+// 60개의 타이틀 코스 패턴 ('마사지 마사지' 중복 배제 및 다채로운 키워드 배치)
+const cityCoursePatterns = [
+  '출장 건식 마사지 & 힐링 케어',
+  '출장 아로마 마사지 1:1 맞춤',
+  '출장 스웨디시 & 프리미엄 테라피',
+  '출장 타이 마사지 정찰제 안내',
+  '출장 힐링 바디케어 코스 예약',
+  '출장 딥티슈 테라피 & 안심 서비스',
+  '출장 릴렉싱 마사지 안심 후불제',
+  '출장 감성 스웨디시 테라피 케어',
+  '출장 스포츠 마사지 피로해소 코스',
+  '출장 전신 테라피 & 1:1 힐링 코스',
+  '출장 로미로미 마사지 전문 안내',
+  '출장 아로마 테라피 감성 힐링 케어',
+  '출장 풋&바디 마사지 맞춤 코스',
+  '출장 림프 순환 테라피 안심 서비스',
+  '출장 프리미엄 홈타이 테라피 안내',
+  '출장 건식 릴렉싱 마사지 예약',
+  '출장 오일 바디케어 1:1 전문 테라피',
+  '출장 힐링 테라피 정찰제 케어',
+  '출장 스웨디시 마사지 VIP 코스',
+  '출장 감성 테라피 & 프라이빗 힐링',
+  '출장 전신 릴렉스 마사지 추천 코스',
+  '출장 바디 밸런스 테라피 맞춤 케어',
+  '출장 아로마 오일 마사지 안심 안내',
+  '출장 딥 릴렉싱 테라피 전문 코스',
+  '출장 타이 테라피 피로 완화 케어',
+  '출장 시그니처 마사지 VIP 힐링',
+  '출장 프리미엄 바디 테라피 예약',
+  '출장 힐링 아로마 마사지 후불제',
+  '출장 나이트 케어 테라피 신속 안내',
+  '출장 전신 스트레칭 마사지 코스',
+  '출장 센슈얼 스웨디시 테라피 케어',
+  '출장 림프 릴렉싱 마사지 맞춤형',
+  '출장 홈 웰니스 테라피 정찰제',
+  '출장 건식 테라피 & 힐링 바디케어',
+  '출장 스위트 아로마 마사지 안내',
+  '출장 정통 타이 마사지 피로 리셋',
+  '출장 VIP 전신 테라피 1:1 예약',
+  '출장 감성 바디케어 마사지 코스',
+  '출장 심야 안심 테라피 신속 방문',
+  '출장 프라이빗 힐링 마사지 추천',
+  '출장 딥티슈 바디케어 전문 테라피',
+  '출장 프리미엄 스웨디시 마사지 케어',
+  '출장 오일 테라피 & 릴렉싱 바디',
+  '출장 전신 순환 마사지 맞춤 관리',
+  '출장 로맨틱 아로마 테라피 코스',
+  '출장 에너제틱 스포츠 마사지 예약',
+  '출장 힐링 후불제 테라피 전문 케어',
+  '출장 클래식 타이 마사지 안내',
+  '출장 소프트 스웨디시 힐링 테라피',
+  '출장 1:1 맞춤 바디케어 마사지',
+  '출장 감성 릴렉스 테라피 정찰제',
+  '출장 올인원 전신 마사지 예약 안내',
+  '출장 럭셔리 아로마 테라피 케어',
+  '출장 밸런스 힐링 마사지 코스',
+  '출장 프리미엄 홈케어 테라피 안내',
+  '출장 데일리 피로해소 마사지 케어',
+  '출장 젠틀 딥티슈 테라피 맞춤 코스',
+  '출장 내추럴 아로마 마사지 예약',
+  '출장 토탈 릴렉싱 테라피 안심 서비스',
+  '출장 힐링 마인드 & 바디 마사지'
 ];
 
 const cityPlatformHooks = [
-  '토닥마사지', 'TODAK', '안심 웰니스', '프라이빗 케어',
-  '힐링 네트워크', '안심 후불제', '전신 피로해소', '1:1 맞춤 케어'
+  '토닥 전지역 예약',
+  '100% 안심 후불제',
+  '프라이빗 홈케어',
+  '신속 방문 힐링망',
+  '피로해소 웰니스'
 ];
 
 const priceHooks = [
@@ -40,26 +102,51 @@ const shops = [
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const resolvedParams = await params;
   const { city } = resolvedParams;
-  
-  const cityName = city.toLowerCase() === "seoul" ? "서울" : city.toLowerCase() === "incheon" ? "인천" : "경기";
+  const lowerCity = city.toLowerCase();
 
-  const seedString = `${cityName}-${city.toLowerCase()}-todak-city-seo`;
-  const charSum = seedString.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
-  
-  const part2Idx = (charSum * 3) % cityBookingPatterns.length;
-  const part3Idx = (charSum * 5) % cityPlatformHooks.length;
-  const priceIdx = (charSum * 7) % priceHooks.length;
+  const cityName = lowerCity === "seoul" ? "서울" : lowerCity === "incheon" ? "인천" : "경기";
 
-  const finalTitle = `${cityName} 마사지 | ${cityName} ${cityBookingPatterns[part2Idx]} | ${cityPlatformHooks[part3Idx]}`;
-  const finalDescription = `${cityName} 출장 홈케어 및 프리미엄 마사지 전문. 검증된 관리사의 100% 후불제 안심 케어. ${priceHooks[priceIdx]}`;
+  // 구·동 명칭을 가져와 '출장 마사지' 바로 앞에 위치하도록 세팅
+  const currentRegion = regionData[lowerCity];
+  const sampleDistricts = currentRegion?.districts
+    ? Object.values(currentRegion.districts).slice(0, 3).map((d: any) => d.name).join("·")
+    : "";
+
+  const districtPrefix = sampleDistricts 
+    ? `${cityName} 전역 및 ${sampleDistricts} 구·동 출장 마사지 전문.` 
+    : `${cityName} 전지역 구·동 출장 마사지 전문.`;
+
+  // 60개 패턴 순차 순환 로직 (일자 + 도시 고유값 결합)
+  const today = new Date().getDate();
+  const cityCode = lowerCity.split('').reduce((acc, c) => acc + c.charCodeAt(0), 0);
+
+  const courseIdx = (today + cityCode) % cityCoursePatterns.length;
+  const hookIdx = (cityCode * 3) % cityPlatformHooks.length;
+  const priceIdx = (cityCode * 7) % priceHooks.length;
+
+  const finalTitle = `${cityName} ${cityCoursePatterns[courseIdx]} | ${cityPlatformHooks[hookIdx]} | ${SITE_NAME}`;
+  const finalDescription = `${districtPrefix} 검증된 한국인 관리사의 100% 후불제 홈케어. ${priceHooks[priceIdx]}`;
 
   return {
     metadataBase: new URL(SITE_URL),
     title: { absolute: finalTitle },
     description: finalDescription,
     alternates: { canonical: `${SITE_URL}/${city}` },
-    keywords: [`${cityName} 마사지`, `${cityName} 출장 마사지`, `${cityName} 홈타이`, `${cityName} 스웨디시`, SITE_NAME],
-    openGraph: { title: finalTitle, description: finalDescription, url: `${SITE_URL}/${city}`, locale: "ko_KR", type: "website" },
+    keywords: [
+      `${cityName} 출장 건식 마사지`,
+      `${cityName} 출장 아로마 마사지`,
+      `${cityName} 출장 마사지`,
+      `${cityName} 홈타이`,
+      `${cityName} 스웨디시`,
+      SITE_NAME
+    ],
+    openGraph: {
+      title: finalTitle,
+      description: finalDescription,
+      url: `${SITE_URL}/${city}`,
+      locale: "ko_KR",
+      type: "website"
+    },
   };
 }
 
